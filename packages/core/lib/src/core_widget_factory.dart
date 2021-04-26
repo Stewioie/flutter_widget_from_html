@@ -431,17 +431,17 @@ class WidgetFactory {
 
   /// Handles user tapping a link.
   Future<bool> onTapUrl(String url) async {
-    final callback = _widget?.onTapUrl;
-    if (callback != null) {
-      callback(url);
-      return true;
-    }
-
     if (url.startsWith('#')) {
       final id = url.substring(1);
       final anchorContext = _anchors[id]?.currentContext;
       if (anchorContext != null) {
         return onTapAnchor(id, anchorContext);
+      }
+    } else {
+      final callback = _widget?.onTapUrl;
+      if (callback != null) {
+        callback(url);
+        return true;
       }
     }
 
